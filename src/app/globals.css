@@ -1,0 +1,105 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=DM+Mono:wght@400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Base ─────────────────────────────────────────────────────────────────── */
+:root {
+  --color-red:    #E3350D;
+  --color-dark:   #0A0A0F;
+  --color-card:   #13131A;
+  --color-border: #1E1E2E;
+  --color-muted:  #3A3A4A;
+  --color-text:   #E8E8F0;
+  --color-sub:    #8888A0;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background-color: var(--color-dark);
+  color: var(--color-text);
+  font-family: 'DM Sans', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* ── Scrollbar ────────────────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--color-dark); }
+::-webkit-scrollbar-thumb { background: var(--color-muted); border-radius: 999px; }
+::-webkit-scrollbar-thumb:hover { background: var(--color-red); }
+
+/* ── Utility classes ─────────────────────────────────────────────────────── */
+@layer utilities {
+  /* Shimmer skeleton loading effect */
+  .skeleton {
+    background: linear-gradient(
+      90deg,
+      var(--color-card) 25%,
+      var(--color-border) 50%,
+      var(--color-card) 75%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.6s ease-in-out infinite;
+  }
+
+  /* Stat bar fill animation */
+  .stat-bar {
+    transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Card hover lift */
+  .card-hover {
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  .card-hover:hover {
+    transform: translateY(-6px) scale(1.01);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+  }
+
+  /* Noise texture overlay (placeholder for Draftly integration) */
+  .noise-overlay::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    opacity: 0.5;
+  }
+}
+
+/* ── Keyframes (duplicated here for non-Tailwind use) ─────────────────────── */
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position:  200% 0; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes floatY {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-8px); }
+}
+
+/* ── Draftly integration anchor ──────────────────────────────────────────────
+   When you get the Draftly output, paste the <canvas> or scroll container
+   inside #draftly-scene below. The existing content sits on top via z-index.
+   ─────────────────────────────────────────────────────────────────────────── */
+#draftly-scene {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+#app-content {
+  position: relative;
+  z-index: 1;
+}
