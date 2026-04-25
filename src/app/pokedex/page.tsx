@@ -12,7 +12,7 @@ import SkeletonCard from "@/components/ui/SkeletonCard";
 
 export default function PokedexPage() {
   const {
-    cards, loading, loadingMore, hasMore, error,
+    cards, totalLoaded, loading, loadingMore, hasMore, error,
     loadMore,
     search, setSearch,
     activeType, setActiveType,
@@ -34,7 +34,7 @@ export default function PokedexPage() {
             POKÉDEX
           </h1>
           <p className="font-body text-sm text-[#8888A0] mt-2">
-            {loading ? "Loading…" : `${cards.length} Pokémon found`}
+            {loading ? "Loading Pokémon..." : `${totalLoaded} of 1025 Pokémon loaded`}
           </p>
         </div>
 
